@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Form, Row, Col, Pagination } from 'react-bootstrap';
 
-export const TransactionList = () => {
+export function TransactionList() {
     return (
         <div className="custom-container">
             <Row>
