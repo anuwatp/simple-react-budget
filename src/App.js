@@ -8,19 +8,22 @@ import PieChart from './components/PieChart';
 import { TotalIncome } from './components/TotalIncome';
 import { TotalExpense } from './components/TotalExpense';
 import { TransactionList } from './components/TransactionList';
+import { GlobalProvider } from './context/GlobalState';
 
 function App() {
   return (
-    <Container>
-      <Header />
-      <AddTransaction />
-      <div className="d-flex flex-column flex-md-row">
-        <PieChart />
-        <TotalIncome />
-        <TotalExpense />
-      </div>
-      <TransactionList />
-    </Container>
+    <GlobalProvider>
+      <Container>
+        <Header />
+        <AddTransaction />
+        <div className="d-flex flex-column flex-md-row">
+          <PieChart />
+          <TotalIncome />
+          <TotalExpense />
+        </div>
+        <TransactionList />
+      </Container>
+    </GlobalProvider>
   );
 }
 

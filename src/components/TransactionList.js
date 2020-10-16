@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Form, Row, Col, Pagination } from 'react-bootstrap';
+import { GlobalContext } from '../context/GlobalState';
+import { Transaction } from './Transaction';
 
 export function TransactionList() {
+    const { transactions } = useContext(GlobalContext);
+
     return (
         <div className="custom-container">
             <Row>
@@ -17,49 +21,15 @@ export function TransactionList() {
             <Table striped bordered hover>
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Account</th>
+                        <th>Type</th>
                         <th>Date</th>
                         <th>Description</th>
                         <th>Amount</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Income</td>
-                        <td>10.12.2020</td>
-                        <td>Lorem ipsum</td>
-                        <td>5,000</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Expense</td>
-                        <td>10.12.2020</td>
-                        <td>Lorem ipsum</td>
-                        <td>-500</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Savings</td>
-                        <td>10.12.2020</td>
-                        <td>Lorem ipsum</td>
-                        <td>$2,000</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Debt</td>
-                        <td>10.12.2020</td>
-                        <td>Lorem ipsum</td>
-                        <td>$-250</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>Debt</td>
-                        <td>10.12.2020</td>
-                        <td>Lorem ipsum</td>
-                        <td>$-250</td>
-                    </tr>
+                    {transactions.map(transaction => (<Transaction key={transaction.id} transaction={transaction}/>))}
                 </tbody>
             </Table>
             <div className="d-flex">
@@ -71,6 +41,6 @@ export function TransactionList() {
                     <Pagination.Next />
                 </Pagination>
             </div>
-        </div>
+        </div >
     );
 }
