@@ -21,7 +21,7 @@ export const AlertMessage = () => {
                 </div>
             </r.Alert>
 
-            { !show && <r.Button onClick={() => setShow(true)}>Show</r.Button>}
+            { !show && <r.Button className="btn-info" onClick={() => setShow(true)}>Show</r.Button>}
         </>
     );
 }
