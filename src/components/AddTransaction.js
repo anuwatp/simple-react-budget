@@ -1,40 +1,37 @@
 import React, { useState, useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Col, Form } from 'react-bootstrap';
-import { GlobalContext } from '../context/GlobalState';
+import { GlobalContext, CurrentDate } from '../context/GlobalState';
 
 export function AddTransaction() {
     const [type, setType] = useState('Income');
     const [description, setDescription] = useState('');
     const [amount, setAmount] = useState();
-
     const { addTransaction } = useContext(GlobalContext);
-
-    // Date format mm/dd/yyyy
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    const yyyy = today.getFullYear();
-    today = mm + '/' + dd + '/' + yyyy;
 
     const onSubmit = e => {
         e.preventDefault();
-
         // Simple ID generator
         const newTransaction = {
             id: Math.floor(Math.random() * 100000000),
             type,
-            date: today,
+            date: CurrentDate(),
             description,
-            amount: type === 'Expense' ? - amount : amount,
+            amount: type === 'Expense' ? - amount : amount && type === 'Debt' ? - amount : amount,
             action: 'Delete'
         }
         addTransaction(newTransaction);
+        clearInput();
+    };
 
-    }
+    // Reset input
+    const clearInput = () => {
+        setDescription('');
+        setAmount({});
+    };
 
     const fromElement = (
-        <Form.Row as="form" className="custom-container">
+        <Form.Row as="form" className="custom-container" autoComplete='off' onSubmit={onSubmit}>
             {/* Select options */}
             <Col xs={12} md={2}>
                 <Form.Control as="select" value={type} onChange={(e) => setType(e.target.value)}>
@@ -50,11 +47,11 @@ export function AddTransaction() {
             </Col>
             {/* Amountfield */}
             <Col xs={12} md={2}>
-                <Form.Control type="number" name="amount" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} placeholder="Amount" />
+                <Form.Control type="number" min='0' name="amount" value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} placeholder="Amount" required />
             </Col>
             {/* Submit button field */}
             <Col xs={12} md={2}>
-                <Button variant="primary" type="submit" onClick={onSubmit}>Submit</Button>
+                <Button variant="primary" type="submit">Submit</Button>
             </Col>
         </Form.Row>
     );

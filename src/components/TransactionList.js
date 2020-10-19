@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Table, Form, Row, Col, Pagination } from 'react-bootstrap';
+import { Table, Row, Col, Pagination } from 'react-bootstrap';
 import { GlobalContext } from '../context/GlobalState';
 import { Transaction } from './Transaction';
 
@@ -10,11 +10,8 @@ export function TransactionList() {
     return (
         <div className="custom-container">
             <Row>
-                <Col>
-                    {/* Option months */}
-                    <Form.Control as="select" className="custom-select-month">
-                        <option value="January">January</option>
-                    </Form.Control>
+                <Col className="text-center mb-4">
+                    <h1>History</h1>
                 </Col>
             </Row>
             {/* Transaction list */}
@@ -29,18 +26,9 @@ export function TransactionList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {transactions.map(transaction => (<Transaction key={transaction.id} transaction={transaction}/>))}
+                    {transactions.map(transaction => (<Transaction key={transaction.id} transaction={transaction} />))}
                 </tbody>
             </Table>
-            <div className="d-flex">
-                <p className="mr-auto">Showing 1 to 5 of 10</p>
-                <Pagination>
-                    <Pagination.Prev />
-                    <Pagination.Item active>{1}</Pagination.Item>
-                    <Pagination.Item>{2}</Pagination.Item>
-                    <Pagination.Next />
-                </Pagination>
-            </div>
         </div >
     );
 }

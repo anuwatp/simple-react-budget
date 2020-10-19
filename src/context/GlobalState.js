@@ -1,14 +1,32 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
 
+export const CurrentDate = () => {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+    // Return date format  mm/dd/yyyy
+    return today = mm + '/' + dd + '/' + yyyy;
+};
+
+export const getCurrentDate = () => {
+    const months = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+        let today = new Date();
+        const mm = months[today.getMonth()]
+        const yyyy = today.getFullYear();
+        // Return date format i.e January 2020
+    return today = mm + ' ' + yyyy;
+};
+
 // Initial state
 const initialState = {
     transactions: [
-        { id: 1, type: 'Income', date: '10/15/2020', description: 'Lorem ipsum', amount: 5000, action: 'Delete' },
-        // {id: 1, type: 'Savings', date: '10/15/2020', description: 'Lorem ipsum', amount: -2000, action: 'Delete' },
-        // {id: 1, type: 'Debt', date: '10/15/2020', description: 'Lorem ipsum', amount: -1000, action: 'Delete' },
-        { id: 2, type: 'Expense', date: '10/15/2020', description: 'Lorem ipsum', amount: -500, action: 'Delete' },
-        { id: 3, type: 'Expense', date: '10/15/2020', description: 'Lorem ipsum', amount: -500, action: 'Delete' }
+        { id: 1, type: 'Income', date: CurrentDate(), description: 'Lorem ipsum', amount: 5000, action: 'Delete' },
+        { id: 2, type: 'Savings', date: CurrentDate(), description: 'Lorem ipsum', amount: 2000, action: 'Delete' },
+        { id: 3, type: 'Expense', date: CurrentDate(), description: 'Lorem ipsum', amount: -500, action: 'Delete' },
+        { id: 4, type: 'Debt', date: CurrentDate(), description: 'Lorem ipsum', amount: -1000, action: 'Delete' }
     ]
 };
 
